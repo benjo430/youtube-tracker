@@ -1,0 +1,77 @@
+{% extends 'youtubetracker/base.html' %}
+{% block content %}
+
+
+
+
+<h1>All Amino Views</h1>
+<canvas id="myChart" width="800" height="300"></canvas>
+<br></br>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Sort By Marketer</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% if videomarketerlist %}
+    {% for people in videomarketerlist %}
+      <tr>
+        <td><li><a href="{% url 'youtubetracker:marketerdetail' people %}">{{ people }}</a></li></td>
+      </tr>
+    {% endfor %}
+    {% else %}
+    <p>No Marketers Available</p>
+	{% endif %}
+  </tbody>
+</table>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Complete List of Amino Videos</th>
+      <th>Marketer</th>
+      <th>Community</th>
+      <th>Cost</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% if videolist %}
+    {% for videos in videolist %}
+      <tr>
+        <td><a href="{% url 'youtubetracker:detail' videos.id %}">{{ videos.title }}</td>
+        <td><a href="{% url 'youtubetracker:marketerdetail' videos.marketer %}">{{ videos.marketer }}</a></td>
+        <td>{{ videos.community }}</td>
+        <td>{{ videos.cost }}</td>
+      </tr>
+    {% endfor %}
+    {% else %}
+    <p>No videos are available.</p>
+	{% endif %}
+  </tbody>
+</table>
+
+{% if videolist.has_other_pages %}
+  <ul class="pagination">
+    {% if videolist.has_previous %}
+      <li><a href="?page={{ videolist.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in videolist.paginator.page_range %}
+      {% if videolist.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if videolist.has_next %}
+      <li><a href="?page={{ videolist.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% endblock %}

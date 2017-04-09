@@ -1,0 +1,15 @@
+{% extends 'youtubetracker/base.html' %}
+{% block content %}
+	<h1>URL: <a href="{{ video }}">{{ video }}</a></h1>
+	<h1>Marketer: {{ video.marketer }} </h1>
+	<h1>Community: {{ video.community }} </h1>
+	<h1>Cost: {{ video.cost }} </h1>
+	<h1>Publish Date: {{ video.publishdate }} </h1>
+
+	<ul>
+	{% for viewcount in video.viewcount_set.all %}
+	    <li>{{ viewcount.viewcount }}, {{ viewcount.viewcountdate }}</li>
+	{% endfor %}
+	</ul>
+
+{% endblock %}

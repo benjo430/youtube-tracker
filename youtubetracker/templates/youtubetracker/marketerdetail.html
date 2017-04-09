@@ -1,0 +1,33 @@
+{% extends 'youtubetracker/base.html' %}
+{% block content %}
+	
+	<h1>Marketer: {{ marketer_id }} </h1>
+	<canvas id="myChart" width="800" height="300"></canvas>
+
+
+	
+	<table class="table table-bordered">
+	  <thead>
+	    <tr>
+	      <th>Video</th>
+	      <th>Marketer</th>
+	      <th>Community</th>
+	      <th>Cost</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{% if allmarketerlist %}
+	    {% for videos in allmarketerlist %}
+	      <tr>
+	        <td><a href="{% url 'youtubetracker:detail' videos.id %}">{{ videos.title }}</td>
+	        <td>{{ videos.marketer }}</td>
+	        <td>{{ videos.community }}</td>
+	        <td>{{ videos.cost }}</td>
+	      </tr>
+	    {% endfor %}
+	    {% else %}
+	    <p>No videos are available.</p>
+		{% endif %}
+	  </tbody>
+	</table>
+{% endblock %}

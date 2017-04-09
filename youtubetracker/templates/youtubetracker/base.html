@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'youtubetracker/css/datepicker.css' %}">
+  </head>
+  <body>
+    
+    <div class="container-fluid">
+    <input type="text" class="form-control docs-date" name="date" placeholder="Start Date to Show on Graph" id="date1">
+    <input type="text" class="form-control docs-date" name="date" placeholder="End Date to Show on Graph" id="date2">
+    <input type="text" class="form-control docs-date" name="date" placeholder="Videos Publish Date Start" id="pubdate1">
+    <input type="text" class="form-control docs-date" name="date" placeholder="Videos Publish Date End" id="pubdate2">
+    <button onclick="submit();" type="button" class="btn btn-primary">Render</button>
+    {% block content %}
+    {% endblock %}
+    </div>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="{% static 'youtubetracker/js/datepicker.js' %}"></script>
+    <script src="{% static 'youtubetracker/js/main.js' %}"></script>
+    <script type="text/javascript" src="{% static 'youtubetracker/js/date.js' %}"></script>
+    <script type="text/javascript">
+      function submit(){
+      var date1 = document.getElementById('date1');
+      var date2 = document.getElementById('date2');
+      var pubdate1 = document.getElementById('pubdate1');
+      var pubdate2 = document.getElementById('pubdate2');
+      var newdate1 = Date.parse(date1.value).toString("yyyy-MM-dd")
+      var newdate2 = Date.parse(date2.value).toString("yyyy-MM-dd")
+      var newpubdate1 = Date.parse(pubdate1.value).toString("yyyy-MM-dd")
+      var newpubdate2 = Date.parse(pubdate2.value).toString("yyyy-MM-dd")
+      window.location.href = 'http://127.0.0.1:8000/youtubetracker/'.concat(newdate1,"/",newdate2,"/",newpubdate1,"/",newpubdate2) ;
+      }
+    </script>
+    <script type="text/javascript">
+
+  $( document ).ready(function() {
+      var data = {
+          labels: {{ plotdates }},
+          datasets: [
+              {
+                  label: "Site Registrations in the Last 30 Days",
+                  fillColor: "rgba(220,220,220,0.2)",
+                  strokeColor: "rgba(220,220,220,1)",
+                  pointColor: "rgba(220,220,220,1)",
+                  pointStrokeColor: "#fff",
+                  pointHighlightFill: "#fff",
+                  pointHighlightStroke: "rgba(220,220,220,1)",
+                  data: {{ plotvalues }}
+              }
+          ]
+      };
+      var ctx = document.getElementById("myChart").getContext("2d");
+      var myLineChart = new Chart(ctx).Line(data);
+  });
+  </script>
+  </body>
+</html>
