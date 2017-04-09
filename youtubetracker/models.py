@@ -7,21 +7,63 @@ from django.utils import timezone
 
 
 class Video(models.Model):
+	UNKNOWN = 'Unknown'
 	JACOB = 'Jacob'
 	ANGIE = 'Angie'
 	EMILY = 'Emily'
 	LOUISE = 'Louise'
+	TYLER = 'Tyler'
+	SARAH = 'Sarah'
+	MELISSA = 'Melissa'
+	VALERIA = 'Valeria'
+	MAURICIO = 'Mauricio'
+	NOOR = 'Noor'
+	BEN = 'Ben'
+	ANNIE = 'Annie'
+	JULIANA = 'Juliana'
+	TOBY = 'Toby'
 
 	MARKETER = (
+		(UNKNOWN, 'Unknown'),
 		(JACOB, 'Jacob'),
 		(ANGIE, 'Angie'),
 		(EMILY, 'Emily'),
 		(LOUISE, 'Louise'),
+		(TYLER, 'Tyler'),
+		(SARAH, 'Sarah'),
+		(MELISSA, 'Melissa'),
+		(VALERIA, 'Valeria'),
+		(MAURICIO, 'Mauricio'),
+		(NOOR, 'Noor'),
+		(BEN, 'Ben'),
+		(ANNIE, 'Annie'),
+		(JULIANA, 'Juliana'),
+		(TOBY, 'Toby'),
+
 	)
 	marketer = models.CharField(
 		max_length=30,
 		choices=MARKETER,
-		default=JACOB,
+		default=UNKNOWN,
+	)
+
+	EN = 'English'
+	PT = 'Portuguese'
+	ES = 'Spanish'
+	AR = 'Arabic'
+	RU = 'Russian'
+
+	LANGUAGES = (
+		(EN, 'EN'),
+		(PT, 'PT'),
+		(ES, 'ES'),
+		(AR, 'AR'),
+		(RU, 'RU'),
+	)
+	language = models.CharField(
+		max_length=30,
+		choices=LANGUAGES,
+		default=EN,
 	)
 
 	url = models.URLField(max_length=200, unique=True)
@@ -29,6 +71,7 @@ class Video(models.Model):
 	cost = models.IntegerField()
 	publishdate = models.DateField(auto_now=False, auto_now_add=False)
 	title = models.CharField(max_length=200, default="No Title Entered")
+	projectedviews = models.IntegerField(default=0)
 	def __str__(self):
 		return self.url
 
@@ -38,3 +81,5 @@ class Viewcount(models.Model):
 	viewcount = models.IntegerField()
 	def __str__(self):
 		return self.viewcount
+
+

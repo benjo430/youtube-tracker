@@ -11,13 +11,7 @@
     <link rel="stylesheet" href="{% static 'youtubetracker/css/datepicker.css' %}">
   </head>
   <body>
-    
     <div class="container-fluid">
-    <input type="text" class="form-control docs-date" name="date" placeholder="Start Date to Show on Graph" id="date1">
-    <input type="text" class="form-control docs-date" name="date" placeholder="End Date to Show on Graph" id="date2">
-    <input type="text" class="form-control docs-date" name="date" placeholder="Videos Publish Date Start" id="pubdate1">
-    <input type="text" class="form-control docs-date" name="date" placeholder="Videos Publish Date End" id="pubdate2">
-    <button onclick="submit();" type="button" class="btn btn-primary">Render</button>
     {% block content %}
     {% endblock %}
     </div>
@@ -31,20 +25,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="{% static 'youtubetracker/js/datepicker.js' %}"></script>
     <script src="{% static 'youtubetracker/js/main.js' %}"></script>
+
     <script type="text/javascript" src="{% static 'youtubetracker/js/date.js' %}"></script>
-    <script type="text/javascript">
-      function submit(){
-      var date1 = document.getElementById('date1');
-      var date2 = document.getElementById('date2');
-      var pubdate1 = document.getElementById('pubdate1');
-      var pubdate2 = document.getElementById('pubdate2');
-      var newdate1 = Date.parse(date1.value).toString("yyyy-MM-dd")
-      var newdate2 = Date.parse(date2.value).toString("yyyy-MM-dd")
-      var newpubdate1 = Date.parse(pubdate1.value).toString("yyyy-MM-dd")
-      var newpubdate2 = Date.parse(pubdate2.value).toString("yyyy-MM-dd")
-      window.location.href = 'http://127.0.0.1:8000/youtubetracker/'.concat(newdate1,"/",newdate2,"/",newpubdate1,"/",newpubdate2) ;
-      }
-    </script>
     <script type="text/javascript">
 
   $( document ).ready(function() {

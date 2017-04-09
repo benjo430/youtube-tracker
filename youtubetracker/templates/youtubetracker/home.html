@@ -1,0 +1,60 @@
+{% extends 'youtubetracker/base.html' %}
+{% block content %}
+	<div class="formfields" style="width: 350px; margin: 0 auto; ">
+	    <br></br>
+	    <h5>Chart Range (Start)</h5>
+	    <input type="text" value="{{ datedefault }}" class="form-control docs-date" name="date" placeholder="Start Date to Show on Graph" id="date1">
+	    <br></br>
+	    <h5>Chart Range (End)</h5>
+	    <input type="text" value="{{ todaydefault }}" class="form-control docs-date" name="date" placeholder="End Date to Show on Graph" id="date2">
+	    <br></br>
+	    <h5>Pub Date (Start)</h5>
+	    <input type="text" value="{{ datedefault }}" class="form-control docs-date" name="date" placeholder="Videos Publish Date Start" id="pubdate1">
+	    <br></br>
+	    <h5>Pub Date (End)</h5>
+	    <input  type="text" value="{{ todaydefault }}" class="form-control docs-date" name="date" placeholder="Videos Publish Date End" id="pubdate2">
+	    <br></br>
+	    <select class="selectpicker" name="viewby" id="viewby">
+		    <optgroup label="Language">
+		    	<option value="all">All</option>
+		    	<option value="English">English</option>
+		    	<option value="Spanish">Spanish</option>
+		    	<option value="Portuguese">Portuguese</option>
+		    	<option value="Arabic">Arabic</option>
+		    	<option value="Russian">Russian</option>
+			</optgroup>
+			<optgroup label="Marketer">
+		    	{% if videomarketerlist %}
+		    		{% for people in videomarketerlist %}
+					    <option value="{{ people.0 }}">{{ people.0 }}</option>
+					{% endfor %}
+		    	{% else %}
+		    		<p>No Marketers Available</p>
+				{% endif %}
+			</optgroup>
+	  	</select>
+	  	<select name="chartdisplay" id="chartdisplay">
+	    	<option value="total">Total</option>
+	    	<option value="incremental">Incremental</option>
+	  	</select>
+	  	<br></br>
+	  	<br></br>
+	    <button onclick="submit();" type="button" class="btn btn-primary">Generate Report</button>
+    </div>
+    
+	<script type="text/javascript">
+      function submit(){
+      var viewby = document.getElementById('viewby').value;
+      var chartdisplay = document.getElementById('chartdisplay').value;
+      var date1 = document.getElementById('date1');
+      var date2 = document.getElementById('date2');
+      var pubdate1 = document.getElementById('pubdate1');
+      var pubdate2 = document.getElementById('pubdate2');
+      var newdate1 = Date.parse(date1.value).toString("yyyy-MM-dd")
+      var newdate2 = Date.parse(date2.value).toString("yyyy-MM-dd")
+      var newpubdate1 = Date.parse(pubdate1.value).toString("yyyy-MM-dd")
+      var newpubdate2 = Date.parse(pubdate2.value).toString("yyyy-MM-dd")
+      window.location.href = 'http://127.0.0.1:8000/youtubetracker/'.concat(viewby,"/",chartdisplay,"/",newdate1,"/",newdate2,"/",newpubdate1,"/",newpubdate2) ;
+      }
+    </script>
+{% endblock %}

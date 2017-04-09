@@ -3,29 +3,11 @@
 
 
 
-
-<h1>All Amino Views</h1>
-<canvas id="myChart" width="800" height="300"></canvas>
+<h1>Report:</h1>
+<br></br>
+<canvas id="myChart" width="1200" height="300"></canvas>
 <br></br>
 
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Sort By Marketer</th>
-    </tr>
-  </thead>
-  <tbody>
-  	{% if videomarketerlist %}
-    {% for people in videomarketerlist %}
-      <tr>
-        <td><li><a href="{% url 'youtubetracker:marketerdetail' people %}">{{ people }}</a></li></td>
-      </tr>
-    {% endfor %}
-    {% else %}
-    <p>No Marketers Available</p>
-	{% endif %}
-  </tbody>
-</table>
 
 <table class="table table-bordered">
   <thead>
@@ -34,6 +16,7 @@
       <th>Marketer</th>
       <th>Community</th>
       <th>Cost</th>
+      <th>Language</th>
     </tr>
   </thead>
   <tbody>
@@ -44,6 +27,7 @@
         <td><a href="{% url 'youtubetracker:marketerdetail' videos.marketer %}">{{ videos.marketer }}</a></td>
         <td>{{ videos.community }}</td>
         <td>{{ videos.cost }}</td>
+        <td>{{ videos.language }}</td>
       </tr>
     {% endfor %}
     {% else %}
@@ -73,5 +57,5 @@
     {% endif %}
   </ul>
 {% endif %}
-
+    
 {% endblock %}
