@@ -44,6 +44,10 @@
     
 	<script type="text/javascript">
       function submit(){
+      var myAnchor = $("<a />");
+      var fullurl = window.location.href;
+      myAnchor.attr('href', fullurl)
+      var hostname = myAnchor.attr('hostname'); // http://example.com
       var viewby = document.getElementById('viewby').value;
       var chartdisplay = document.getElementById('chartdisplay').value;
       var date1 = document.getElementById('date1');
@@ -54,7 +58,7 @@
       var newdate2 = Date.parse(date2.value).toString("yyyy-MM-dd")
       var newpubdate1 = Date.parse(pubdate1.value).toString("yyyy-MM-dd")
       var newpubdate2 = Date.parse(pubdate2.value).toString("yyyy-MM-dd")
-      window.location.href = 'http://127.0.0.1:8000/youtubetracker/'.concat(viewby,"/",chartdisplay,"/",newdate1,"/",newdate2,"/",newpubdate1,"/",newpubdate2) ;
+      window.location.href = hostname.concat(viewby,"/",chartdisplay,"/",newdate1,"/",newdate2,"/",newpubdate1,"/",newpubdate2) ;
       }
     </script>
 {% endblock %}
