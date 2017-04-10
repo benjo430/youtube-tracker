@@ -30,8 +30,36 @@ def index(request, viewby = "all", chartdisplay= "total", date1=False, date2=Fal
 	chart_display = incremental or total
 	dates = 2017-04-06
 	"""
+	startpubdatetime = datetime.datetime.strptime(pubdate1, '%Y-%m-%d').date() 
+	endpubdatetime = datetime.datetime.strptime(pubdate2, '%Y-%m-%d').date()
+	
+	# Get clean language list to check against. 
+	languagelist = []
+	for language in Video.LANGUAGES:
+		languagelist.append(language[0])
+		print language[0]
+
+	# Get clean marketer list ot check against.
+	marketerlist = []
+	for marketer in Video.MARKETER:
+		marketerlist.append(marketer[1])
+		print type(marketer[1])
+
 	# Get all the youtube videos in the database
-	allvideolist = Video.objects.all()
+	print viewby
+	if viewby == "all":
+		allvideolist = Video.objects.filter(publishdate__range=(startpubdatetime,endpubdatetime))
+		print "GOT ALL"
+	elif viewby in marketerlist:
+		allvideolist = Video.objects.filter(publishdate__range=(startpubdatetime,endpubdatetime), marketer=viewby)
+		print "GOT MARKETING"
+	elif viewby in languagelist:
+		allvideolist = Video.objects.filter(publishdate__range=(startpubdatetime,endpubdatetime), language=viewby)
+		print "GOT LANGUAGES"
+	else:
+		allvideolist = Video.objects.filter(publishdate__range=(startpubdatetime,endpubdatetime))
+		print "GOT ELSE"
+
 
 	
 	# Get a clean list of the marketers by name
@@ -86,7 +114,7 @@ def index(request, viewby = "all", chartdisplay= "total", date1=False, date2=Fal
 	# for i in plotdates:
 	# 		print str(i)
 
-	context = {'videomarketerlist': Video.MARKETER, 'plotdates': plotdates, 'plotvalues': plotvalues, 'videolist': videolist}
+	context = {'videomarketerlist': Video.MARKETER, 'plotdates': plotdates, 'plotvalues': plotvalues, 'videolist': videolist, 'viewby':viewby}
 	return render(request, 'youtubetracker/index.html', context)
 
 
