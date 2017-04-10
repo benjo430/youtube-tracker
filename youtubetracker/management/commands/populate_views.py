@@ -36,8 +36,11 @@ class Command(BaseCommand):
                 print mostrecentdate
             if mostrecentdate != today or empty == True:
                 # Use requests to get the view count from the URL in the database.
-                page = requests.get(video.url)
-                time.sleep(1.5)
+                try:
+                    page = requests.get(video.url)
+                except requests.exceptions.ConnectionError:
+                    r.status_code = "Connection refused"
+                time.sleep(3)
                 tree = html.fromstring(page.content)
                 views = tree.xpath('//*[@id="watch7-views-info"]/div[1]/text()')
 
