@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     def populate(self):
         # Open the workbook
-        fpath = 'http://127.0.0.1:8000/youtubetracker/static/youtubetracker/excel/baseline.xls'
+        fpath = '/Users/benjaminanderson/Desktop/pipelines/Cleaned/baseline.xls'
         xl_workbook = xlrd.open_workbook(fpath)
         # Or grab the first sheet by index 
         xl_sheet = xl_workbook.sheet_by_index(0)
