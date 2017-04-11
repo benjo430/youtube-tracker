@@ -9,8 +9,15 @@ from datetime import date
 import json
 import time
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from upload import *
+
 # from graphos.sources.simple import SimpleDataSource
 # from graphos.renderers.gchart import LineChart
+def upload(request):
+	hey = "my message"
+	populate()
+	context = {'hey':hey}
+	return render(request, 'youtubetracker/upload.html', context)
 
 def home(request):
 	allvideolist = Video.objects.all().filter(language="Spanish")

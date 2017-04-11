@@ -14,6 +14,8 @@ urlpatterns = [
     # ex: /youtubetracker/5/
     url(r'^(?P<video_id>[0-9]+)/$', views.detail, name='detail'),
 
+    url(r'^upload$', views.upload, name='upload'),
+
     # ex: /youtubetracker/Jacob/marketer
     url(r'^(?P<marketer_id>[\w\-]+)/marketer/$', views.marketerdetail, name='marketerdetail'),
 
